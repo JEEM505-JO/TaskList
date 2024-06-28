@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Task List</string>
+    <string name="welcome">Bienvenido</string>
+    <string name="yourTask">Estas son tus tareas</string>
+    <string name="dev">En desarrollo</string>
+    <string name="Order">Ordenes</string>
+    <string name="AddTask">Añadir tarea</string>
+    <string name="lisTask">Lista de tareas</string>
+    <string name="title_add_task">Titulo</string>
+    <string name="add_description">Descripcion</string>
+    <string name="save">Guardar</string>
+    <string name="update">Actualizar tarea</string>
+    <string name="accept">Aceptar\n</string>
+    <string name="cancel">Cancelar\n</string>
+    <string name="task_done">Tarea completada</string>
+    <string name="task_pending">Pendiente</string>
+</resources>
