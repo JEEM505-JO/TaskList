@@ -89,4 +89,8 @@ dependencies {
     kapt(libs.hilt.compiler)
     kapt(libs.androidx.hilt.compiler)
 
+
+    implementation(libs.accompanist.coil) // Para manejar imágenes con Glide
+    implementation (libs.glide)
+    kapt("com.github.bumptech.glide:compiler:4.12.0")
 }

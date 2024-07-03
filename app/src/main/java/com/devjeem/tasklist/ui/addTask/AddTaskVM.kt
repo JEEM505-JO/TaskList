@@ -85,8 +85,15 @@ class AddTaskVM @Inject constructor(private val taskingRepo: TaskingRepo) : View
 
     private fun onChangeTask(b: Boolean) {
         viewModelScope.launch {
-            _state.update {
-                it.copy(checkTask = b)
+            val tasking = _state.value.modelData
+            if (tasking.title.isNotEmpty()) {
+                val status = if (b) 1 else 0
+                taskingRepo.updateTask(status, tasking.id.toInt())
+                getDataFromId(tasking.id.toInt())
+            }else {
+                _state.update {
+                    it.copy(checkTask = b)
+                }
             }
         }
     }

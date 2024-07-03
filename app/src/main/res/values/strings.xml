@@ -14,4 +14,7 @@
     <string name="cancel">Cancelar\n</string>
     <string name="task_done">Tarea completada</string>
     <string name="task_pending">Pendiente</string>
+    <string name="order_day">Estas son sus ordenes del dia</string>
+    <string name="ListImage">Imagenes</string>
+    <string name="orderDetail">Detalle de orden</string>
 </resources>

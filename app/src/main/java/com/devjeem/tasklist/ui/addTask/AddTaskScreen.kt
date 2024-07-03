@@ -61,7 +61,7 @@ fun AddTaskScreen(stateAddTask: StateAddTask) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddTaskContent(stateAddTask: StateAddTask) {
-    Scaffold (
+    Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -152,24 +152,46 @@ fun AddTaskContent(stateAddTask: StateAddTask) {
                     modifier = Modifier
                         .height(43.dp)
                 ) {
-                    Checkbox(
-                        checked = stateAddTask.checkTask,
-                        onCheckedChange = {stateAddTask.onChangeTask(it)}
-                    )
-                    AnimatedVisibility(visible = stateAddTask.checkTask) {
-                        Text(
-                            text = stringResource(id = R.string.task_done),
-                            color = colorResource(id = R.color.black),
-                            fontSize = 18.sp,
+                    if (stateAddTask.modelData.title.isEmpty()) {
+                        Checkbox(
+                            checked = stateAddTask.checkTask,
+                            onCheckedChange = { stateAddTask.onChangeTask(it) }
                         )
-                    }
-                    AnimatedVisibility(visible = !stateAddTask.checkTask) {
-                        Text(
-                            text = stringResource(id = R.string.task_pending),
-                            color = colorResource(id = R.color.black),
-                            fontSize = 18.sp,
+                        AnimatedVisibility(visible = stateAddTask.checkTask) {
+                            Text(
+                                text = stringResource(id = R.string.task_done),
+                                color = colorResource(id = R.color.black),
+                                fontSize = 18.sp,
+                            )
+                        }
+                        AnimatedVisibility(visible = !stateAddTask.checkTask) {
+                            Text(
+                                text = stringResource(id = R.string.task_pending),
+                                color = colorResource(id = R.color.black),
+                                fontSize = 18.sp,
+                            )
+                        }
+                    } else {
+                        Checkbox(
+                            checked = stateAddTask.modelData.status == 1,
+                            onCheckedChange = { stateAddTask.onChangeTask(it) }
                         )
+                        AnimatedVisibility(visible = stateAddTask.modelData.status == 1) {
+                            Text(
+                                text = stringResource(id = R.string.task_done),
+                                color = colorResource(id = R.color.black),
+                                fontSize = 18.sp,
+                            )
+                        }
+                        AnimatedVisibility(visible = stateAddTask.modelData.status == 0) {
+                            Text(
+                                text = stringResource(id = R.string.task_pending),
+                                color = colorResource(id = R.color.black),
+                                fontSize = 18.sp,
+                            )
+                        }
                     }
+
                 }
                 if (stateAddTask.modelData.title.isEmpty()) {
                     Row(
@@ -197,7 +219,6 @@ fun AddTaskContent(stateAddTask: StateAddTask) {
                     }
                 }
             }
-
 
 
         }

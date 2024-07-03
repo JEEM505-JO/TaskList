@@ -37,9 +37,14 @@ import androidx.navigation.compose.rememberNavController
 import com.devjeem.tasklist.R
 import com.devjeem.tasklist.ui.addTask.AddTaskScreen
 import com.devjeem.tasklist.ui.addTask.AddTaskVM
+import com.devjeem.tasklist.ui.imageAsync.ListImageScreen
+import com.devjeem.tasklist.ui.imageAsync.ListImageVM
 import com.devjeem.tasklist.ui.listTask.ListTaskScreen
 import com.devjeem.tasklist.ui.listTask.ListTaskVM
 import com.devjeem.tasklist.ui.order.OrderScreen
+import com.devjeem.tasklist.ui.order.OrderVM
+import com.devjeem.tasklist.ui.orderDetail.OrderDetailScreen
+import com.devjeem.tasklist.ui.orderDetail.OrderDetailVM
 
 
 @Composable
@@ -53,7 +58,9 @@ fun ContentNavButton() {
         "${AppScreens.AddEditTask.route}/{ID}" -> {
             bottomBarState.value = false
         }
-
+        "${AppScreens.DetailOrder.route}/{ID}" -> {
+            bottomBarState.value = false
+        }
         else -> {
             bottomBarState.value = true
         }
@@ -118,7 +125,37 @@ fun ContentNavButton() {
                 AddTaskScreen(stateAddTask = state)
             }
             composable(route = AppScreens.Order.route) {
-                OrderScreen()
+                val viewModel : OrderVM = hiltViewModel()
+                val state by viewModel.state.collectAsState()
+                LaunchedEffect(key1 = Unit){
+                    state.setOrderDetailNav { id ->
+                        navHost.navigate("${AppScreens.DetailOrder.route}/$id")
+                    }
+                }
+                OrderScreen(state)
+            }
+
+            composable(route = AppScreens.ListImage.route) {
+                val viewModel : ListImageVM = hiltViewModel()
+                val state by viewModel.state.collectAsState()
+                ListImageScreen(state)
+            }
+
+            composable(route = "${AppScreens.DetailOrder.route}/{ID}"){
+                val id = it.arguments?.getString("ID")
+                val viewModel : OrderDetailVM = hiltViewModel()
+                val state by viewModel.state.collectAsState()
+                LaunchedEffect(key1 = Unit) {
+                    state.initData(id!!)
+                    state.setOnNavOrderList {
+                        navHost.navigate(AppScreens.Order.route) {
+                            popUpTo(AppScreens.DetailOrder.route) {
+                                inclusive = true
+                            }
+                        }
+                    }
+                }
+                OrderDetailScreen(state)
             }
         }
     }
@@ -137,7 +174,7 @@ fun AppBottomBar(navHost: NavHostController) {
         containerColor = colorResource(id = R.color.white),
     ) {
         val bottomNavigationItems =
-            listOf(AppScreens.ListTask, AppScreens.Order)
+            listOf(AppScreens.ListTask, AppScreens.Order, AppScreens.ListImage)
         val navBackStackEntry by navHost.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination?.route ?: AppScreens.ListTask
 

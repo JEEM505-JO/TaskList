@@ -2,6 +2,7 @@ package com.devjeem.tasklist.ui.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Edit
+import androidx.compose.material.icons.outlined.Favorite
 
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Refresh
@@ -39,6 +40,20 @@ sealed class AppScreens : GenericScreens {
             get() = R.string.Order
         override val icon: ImageVector
             get() = Icons.Outlined.Refresh
+    }
+
+    object ListImage : AppScreens(){
+        override val route: String
+            get() = "listImage"
+        override val title: Int
+            get() = R.string.ListImage
+        override val icon: ImageVector
+            get() = Icons.Outlined.Favorite
+    }
+
+    object DetailOrder : AppScreens() {
+        override val route: String
+            get() = "detailOrder"
     }
 
 

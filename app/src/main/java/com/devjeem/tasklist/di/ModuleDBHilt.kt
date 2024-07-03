@@ -6,6 +6,7 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.devjeem.tasklist.database.MainDataBase
 import com.devjeem.tasklist.database.dao.TaskingDao
+import com.devjeem.tasklist.ui.util.SharedPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,5 +29,10 @@ object ModuleDBHilt {
     @Singleton
     @Provides
     fun provideDao(db: MainDataBase): TaskingDao = db.taskingDao()
+
+    @Singleton
+    @Provides
+    fun provideSharedPreference(@ApplicationContext context: Context): SharedPreferences =
+        SharedPreferences(context)
 
 }

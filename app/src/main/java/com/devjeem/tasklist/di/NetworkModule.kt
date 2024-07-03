@@ -20,7 +20,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    private const val BASE_URL = "https://candidates.otfpos.dev/api/v3/"
+    private const val BASE_URL = "https://developers.otfpos.dev/api/v3/"
 
     @Provides
     @Singleton
